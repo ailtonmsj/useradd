@@ -2,7 +2,7 @@
 
 Projeto baseado em Quarkus para possibilitar o cadastro de usuarios. 
 
-## Executar a aplicação in dev mode
+## Executar a aplicação in dev mode (localmente):
 
 Executando com live coding:
 ```shell script
@@ -57,7 +57,7 @@ docker run --publish 8000:8000 amazon/dynamodb-local:1.11.477 -jar DynamoDBLocal
 
 ### Acessar no browser
 ```
-http://localhost:8000
+http://localhost:8000/shell/
 ```
 
 

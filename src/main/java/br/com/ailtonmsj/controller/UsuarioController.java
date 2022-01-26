@@ -20,41 +20,23 @@ import br.com.ailtonmsj.service.UsuarioService;
 @Path("/usuario")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class UsuarioList {
+public class UsuarioController {
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Inject
 	private UsuarioService usuarioService;
 
-/*	
-    @GET
-    public List<Usuario> getAll() {
-    	log.info("Listando usuarios");
-    	
-    	List<Usuario> usuarios = usuarioService.findAll();
-		
-    	for(Usuario usuario : usuarios) {
-    		log.info("listando usuarios " + usuario);
-    	}
-    	
-		return usuarios;
-    }
-    
-    @GET
-    @Path("{nome}")
-    public Usuario getSingle(@PathParam("id") String nome) {
-    	
-    	log.info("Obtendo usuario por nome " + nome);
-    	
-        return usuarioService.get(nome);
-    }
-*/
     @POST
     public Usuario add(Usuario usuario) {
     	
     	log.info("adicionando usuário" + usuario);
     	
-    	return usuarioService.add(usuario);
+    	Usuario usuarioDB = usuarioService.get(usuario.getNome());
+    	
+    	if (usuarioDB == null || usuarioDB.getNome() == null)
+    		return usuarioService.add(usuario);
+    	
+    	return null;
     }
 }
