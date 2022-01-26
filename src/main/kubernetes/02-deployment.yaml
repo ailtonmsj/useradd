@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: useradd
+  namespace: useradd
+  labels:
+    app: useradd
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: useradd
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: useradd
+    spec:
+      containers:
+      - image: ailtonmsj/useradd-jvm:1.0.0
+        name: useradd-jvm
+        imagePullPolicy: Always
+        resources: {}
+status: {}
