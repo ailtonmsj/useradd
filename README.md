@@ -11,7 +11,7 @@ Executando com live coding:
 
 # Build da Imagem Docker
 ```
-mvn package
+./mvnw package
 docker build -f src/main/docker/Dockerfile.jvm -t <SEU-DOCKERHUB-ID>/useradd-jvm:1.0.0 .
 docker push <SEU-DOCKERHUB-ID>/useradd-jvm:1.0.0
 ```
@@ -48,7 +48,7 @@ containers:
 kubectl apply -f src/main/kubernetes
 ```
 
-# Testes locais
+# Testes locais (Banco de Dados Local)
 
 ### Container para simular dynamodb:
 ```
@@ -95,7 +95,22 @@ quarkus.dynamodb.aws.region=<USAR-A-LOCALIZACAO-DO-DYNAMODB>
 quarkus.dynamodb.aws.credentials.type=default
 ```
 
-### SmallRye Health
+# Códigos de Resposta
+
+### 200 - OK - Usuario Adicionado com Sucesso
+### 400 - Bad Request - Rever parametros de entrada
+### 500 - Server Erro - Erro no Servidor de aplicação
+
+<br />
+
+# Aplicações Relacionadas:
+
+### https://github.com/ailtonmsj/userlist
+### https://github.com/ailtonmsj/userupdate
+
+<br />
+
+# SmallRye Health
 
 Monitor your application's health using SmallRye Health
 
