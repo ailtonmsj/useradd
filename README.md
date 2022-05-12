@@ -1,6 +1,6 @@
-# UserAdd Project
+# Hellow World Quarkus Project
 
-Projeto baseado em Quarkus para possibilitar a inclusão de usuarios. 
+Projeto baseado em Quarkus. 
 
 <br >
 
@@ -11,62 +11,22 @@ Executando com live coding:
 ./mvnw compile quarkus:dev
 ```
 
-### Container para simular dynamodb:
-```
-docker run --publish 8000:8000 amazon/dynamodb-local:1.11.477 -jar DynamoDBLocal.jar -inMemory -sharedDb
-```
-
-### Acessar no browser
-```
-http://localhost:8000/shell/
-```
-
-
-### Schema de banco de dados:
-```
-var params = {
-    TableName: 'AwsNewStackUsuario',
-    KeySchema: [{ AttributeName: 'nome', KeyType: 'HASH' }],
-    AttributeDefinitions: [{  AttributeName: 'nome', AttributeType: 'S', }],
-    ProvisionedThroughput: { ReadCapacityUnits: 1, WriteCapacityUnits: 1, }
-};
-
-dynamodb.createTable(params, function(err, data) {
-    if (err) ppJson(err);
-    else ppJson(data);
-});
-```
-
 <br >
 
 # URL para teste (cURL):
 ```shell script
-curl --location --request POST 'http://<DNS-DO-SERVICO>/usuario' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "nome" : "Teste",
-    "sobrenome" : "Da Silva",
-    "idade" : "30",
-    "pais" : "Brasil"
-}'
+curl --location --request GET 'http://<DNS-DO-SERVICO>/hello'
 ```
 
 ## Exemplo:
 # Testando a aplicação:
 ```shell script
-curl --location --request POST 'http://localhost:8092/usuario' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "nome" : "Teste",
-    "sobrenome" : "Da Silva",
-    "idade" : "30",
-    "pais" : "Brasil"
-}'
+curl --location --request POST 'http://localhost:8080/hello'
 ```
 
 <br >
 
-### IMPORTANTE: Para o profile de dev (quarkus:dev) a porta utilizada para essa aplicação é 8092, porém o default para acesso é 8080 como serviço, e se aplicado no cluster o manifesto kubernetes e a porta 80.
+### IMPORTANTE: Para o profile de dev (quarkus:dev) e default a porta utilizada para essa aplicação é 8080, se aplicado no cluster o manifesto kubernetes e a porta 80.
 
 <br >
 <br >
@@ -76,8 +36,8 @@ curl --location --request POST 'http://localhost:8092/usuario' \
 ## Build da Imagem Docker
 ```
 mvn package
-docker build -f src/main/docker/Dockerfile.jvm -t <SEU-DOCKERHUB-ID>/useradd-jvm:1.0.0 .
-docker push <SEU-DOCKERHUB-ID>/useradd-jvm:1.0.0
+docker build -f src/main/docker/Dockerfile.jvm -t <SEU-DOCKERHUB-ID>/hello-world-quarkus:1.0.0 .
+docker push <SEU-DOCKERHUB-ID>/hello-world-quarkus:1.0.0
 ```
 
 ## Aplicar os manifestos presentes em "src/main/kubernetes" para o deploy ocorrer:
@@ -99,30 +59,22 @@ containers:
 kubectl apply -f src/main/kubernetes
 ```
 
-## Alterar o applications.properties para esse valor de acordo com o ambiente do dynamodb:
-
-### Esses valores são para uso com o AWS DynamoDB
-```
-quarkus.dynamodb.aws.region=<USAR-REGION-DO-DYNAMODB>
-quarkus.dynamodb.aws.credentials.type=default
-```
-
 <br >
 
 # Códigos de Resposta
 
-### 200 - OK - Usuario Adicionado com Sucesso
-### 400 - Bad Request - Rever parametros de entrada
-### 500 - Server Erro - Erro no Servidor de aplicação
+### 200 - OK
 
 <br />
 
-# Aplicações Relacionadas:
+### Health Checks / Ready
 
-### https://github.com/ailtonmsj/userlist
-### https://github.com/ailtonmsj/userupdate
+/q/health/live - The application is up and running.
 
-<br />
+/q/health/ready - The application is ready to serve requests.
+
+/q/health - Accumulating all health check procedures in the application.
+
 
 ### SmallRye Health
 
