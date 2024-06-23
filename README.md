@@ -1,4 +1,4 @@
-# Hellow World Quarkus Project
+# Hello World Quarkus Project
 
 Projeto baseado em Quarkus. 
 
